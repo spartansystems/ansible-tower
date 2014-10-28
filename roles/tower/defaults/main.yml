@@ -1,0 +1,9 @@
+pg_password: "{{ vaulted_pg_password }}"
+admin_password: "{{ vaulted_admin_password }}"
+munin_password: "{{ vaulted_munin_password }}"
+rabbitmq_password: "{{ vaulted_rabbitmq_password }}"
+
+ansible_tower_install_dir: /opt/
+ansible_tower_version: 2.0.2
+ansible_tower_dir: "{{ ansible_tower_install_dir }}ansible-tower-setup-{{ ansible_tower_version }}"
+ansible_tower_group_vars_file: "{{ ansible_tower_dir }}/group_vars/all"

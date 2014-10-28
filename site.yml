@@ -1,0 +1,13 @@
+- hosts: all
+
+  user: root
+
+  pre_tasks:
+    - apt: update_cache=yes
+
+  roles:
+    - tower
+    - security
+
+  vars_files:
+    - vaulted_vars.yml

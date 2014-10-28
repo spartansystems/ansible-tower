@@ -1,0 +1,45 @@
+---
+
+- name: ansible dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - python-dev
+    - python-yaml
+    - python-paramiko
+    - python-jinja2
+    - python-pip
+
+- name: install ansible
+  pip: name=ansible
+
+- name: extract tower setup tarball
+  unarchive: src=ansible-tower-setup-latest.gz dest="{{ ansible_tower_install_dir }}"
+
+- name: update postgres password
+  lineinfile: >
+    dest="{{ ansible_tower_group_vars_file }}"
+    regexp="^pg_password"
+    line="pg_password: {{ pg_password }}"
+
+- name: update admin password
+  lineinfile: >
+    dest="{{ ansible_tower_group_vars_file }}"
+    regexp="^admin_password"
+    line="admin_password: {{ admin_password }}"
+
+- name: update munin password
+  lineinfile: >
+    dest="{{ ansible_tower_group_vars_file }}"
+    regexp="^munin_password"
+    line="munin_password: {{ munin_password }}"
+
+- name: update rabbitmq password
+  lineinfile: >
+    dest="{{ ansible_tower_group_vars_file }}"
+    regexp="^rabbitmq_password"
+    line="rabbitmq_password: {{ rabbitmq_password }}"
+
+- name: install ansible tower
+  command: ./setup.sh
+  args:
+    chdir: "{{ ansible_tower_dir }}"
