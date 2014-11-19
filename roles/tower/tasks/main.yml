@@ -9,8 +9,11 @@
     - python-jinja2
     - python-pip
 
+- name: ansible repo
+  git:  repo=git://github.com/ansible/ansible.git dest=/opt/ansible accept_hostkey=yes
+
 - name: install ansible
-  pip: name=ansible
+  shell: make install chdir=/opt/ansible/
 
 - name: extract tower setup tarball
   unarchive: src=ansible-tower-setup-latest.gz dest="{{ ansible_tower_install_dir }}"
