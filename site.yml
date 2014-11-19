@@ -1,6 +1,7 @@
 - hosts: all
 
-  user: root
+  user: ubuntu
+  sudo: yes
 
   pre_tasks:
     - apt: update_cache=yes
